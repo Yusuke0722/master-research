@@ -425,15 +425,6 @@ void Concentrate::handleMessage(cMessage *msg) {
         if (id / numPerConc == getId() - 2 - CREATE_NUM) {
             cPacket *pkt = new cPacket(m.dump().c_str());
             pkt->setByteLength(byteLength);
-            /*
-            if (m["step"] == 2) {
-                pkt->setByteLength(byteLength * (998 - sizeof(fault)*10) / (98 - sizeof(fault)));
-            } else if (m["step"] == 3) {
-                pkt->setByteLength(byteLength * (999 - sizeof(fault)*10) / (99 - sizeof(fault)));
-            } else {
-                pkt->setByteLength(byteLength);
-            }
-            */
             gateId = id % numPerConc;
             endTrsm = gate("out", gateId)->getTransmissionChannel()->getTransmissionFinishTime();
             sendDelayed(pkt, max((endTrsm - simTime()).dbl(), 0.0), "out", gateId);
