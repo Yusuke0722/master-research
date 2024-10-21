@@ -147,7 +147,8 @@ void Create::send_to_all(const int step, const int sign) {
 
 void Create::send_to_id(const int step, const int sign, const int fromId, const int toId) {
     vector<int> committee;
-    for (int i = fromId; i < toId; i++) {
+    int endId = (fromId < toId) ? toId : toId + CREATE_NUM;
+    for (int i = fromId; i < endId; i++) {
         if (i != getId() - 2) {
             committee.push_back(i % CREATE_NUM);
         }
