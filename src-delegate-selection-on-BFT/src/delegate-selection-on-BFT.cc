@@ -291,7 +291,7 @@ void Create::find_leader(uint32_t step) {
         int sendId = m["sender"];
         if (m["round"] == round && m["step"] == 1 && isCommittee(sendId, fromL, toL)) {
             count++;
-            if (fromL <= sendId && sendId < leadId || leadId < fromL && !(leadId < sendId < fromL)) {
+            if (fromL <= sendId && sendId < leadId || leadId < fromL && !(leadId < sendId && sendId < fromL)) {
                 lead_sign = m["sign"];
                 leadId = sendId;
             }
