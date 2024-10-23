@@ -91,10 +91,6 @@ protected:
 };
 
 class Concentrate: public cSimpleModule {
-private:
-    //int fault[10] = {4,15,17,22,31,44,45,53,56,77};
-    //int fault[25] = {2,7,9,10,21,23,25,29,30,31,38,51,53,57,61,62,64,65,66,69,71,76,96,97,99};
-    int fault[100] = {781,233,244,915,647,382,541,958,0,981,903,357,844,912,297,823,713,763,166,867,840,936,27,345,340,437,470,830,570,214,181,315,687,131,36,544,398,325,858,622,128,976,681,212,971,749,7,686,762,946,787,740,246,425,278,707,424,985,431,117,798,252,531,279,313,119,594,723,104,205,987,634,935,873,106,864,826,369,399,448,261,430,84,874,708,534,43,239,659,615,848,689,391,655,364,445,22,349,918,834};
 protected:
     void handleMessage(cMessage *msg) override;
 };
@@ -426,6 +422,15 @@ void Concentrate::handleMessage(cMessage *msg) {
         if (id / numPerConc == getId() - 2 - CREATE_NUM) {
             cPacket *pkt = new cPacket(m.dump().c_str());
             pkt->setByteLength(byteLength);
+            /*
+            if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
+                pkt->setByteLength(byteLength * 99 / 9);
+            } else if (m["step"] > 1) {
+                pkt->setByteLength(byteLength * 100 / 10);
+            } else {
+                pkt->setByteLength(byteLength);
+            }
+            */
             gateId = id % numPerConc;
             endTrsm = gate("out", gateId)->getTransmissionChannel()->getTransmissionFinishTime();
             sendDelayed(pkt, max((endTrsm - simTime()).dbl(), 0.0), "out", gateId);
@@ -436,14 +441,10 @@ void Concentrate::handleMessage(cMessage *msg) {
                 cPacket *pkt = new cPacket(m.dump().c_str());
                 pkt->setByteLength(byteLength);
                 /*
-                int faultNum = 0;
-                for (int j = 0; j < numPerConc; j++) {
-                    faultNum += count(begin(fault), end(fault), j + (getId() - 2 - CREATE_NUM) * numPerConc);
-                }
-                if (m["step"] == 2 && m["sender"] / numPerConc == getId() - 2 - CREATE_NUM) {
-                    pkt->setByteLength(byteLength * (99 - faultNum*10) / (9 - faultNum));
-                } else if (m["step"] != 1) {
-                    pkt->setByteLength(byteLength * (100 - faultNum*10) / (10 - faultNum));
+                if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
+                    pkt->setByteLength(byteLength * 99 / 9);
+                } else if (m["step"] > 1) {
+                    pkt->setByteLength(byteLength * 100 / 10);
                 } else {
                     pkt->setByteLength(byteLength);
                 }
