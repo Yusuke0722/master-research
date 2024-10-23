@@ -424,9 +424,9 @@ void Concentrate::handleMessage(cMessage *msg) {
             pkt->setByteLength(byteLength);
             /*
             if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
-                pkt->setByteLength(byteLength * 99 / 9);
+                pkt->setByteLength(byteLength * (CREATE_NUM - 1) / (CONC_NUM - 1));
             } else if (m["step"] > 1) {
-                pkt->setByteLength(byteLength * 100 / 10);
+                pkt->setByteLength(byteLength * CREATE_NUM / CONC_NUM);
             } else {
                 pkt->setByteLength(byteLength);
             }
@@ -442,9 +442,9 @@ void Concentrate::handleMessage(cMessage *msg) {
                 pkt->setByteLength(byteLength);
                 /*
                 if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
-                    pkt->setByteLength(byteLength * 99 / 9);
+                    pkt->setByteLength(byteLength * (CREATE_NUM - 1) / (CONC_NUM - 1));
                 } else if (m["step"] > 1) {
-                    pkt->setByteLength(byteLength * 100 / 10);
+                    pkt->setByteLength(byteLength * CREATE_NUM / CONC_NUM);
                 } else {
                     pkt->setByteLength(byteLength);
                 }
