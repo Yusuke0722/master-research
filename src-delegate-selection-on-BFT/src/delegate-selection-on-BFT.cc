@@ -423,9 +423,7 @@ void Concentrate::handleMessage(cMessage *msg) {
             cPacket *pkt = new cPacket(m.dump().c_str());
             pkt->setByteLength(byteLength);
             /*
-            if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
-                pkt->setByteLength(byteLength * (CREATE_NUM - 1) / (CONC_NUM - 1));
-            } else if (m["step"] > 1) {
+            if (m["step"] > 1 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
                 pkt->setByteLength(byteLength * CREATE_NUM / CONC_NUM);
             } else {
                 pkt->setByteLength(byteLength);
@@ -441,9 +439,7 @@ void Concentrate::handleMessage(cMessage *msg) {
                 cPacket *pkt = new cPacket(m.dump().c_str());
                 pkt->setByteLength(byteLength);
                 /*
-                if (m["step"] == 2 && int(m["sender"]) / numPerConc == getId() - 2 - CREATE_NUM) {
-                    pkt->setByteLength(byteLength * (CREATE_NUM - 1) / (CONC_NUM - 1));
-                } else if (m["step"] > 1) {
+                if (m["step"] > 1) {
                     pkt->setByteLength(byteLength * CREATE_NUM / CONC_NUM);
                 } else {
                     pkt->setByteLength(byteLength);
