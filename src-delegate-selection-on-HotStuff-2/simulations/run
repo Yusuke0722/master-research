@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/delegate_selection_on_hotstuff_2 -n .:../src $*
+# for shared lib, use: opp_run -l ../src/delegate_selection_on_hotstuff_2 -n .:../src $*
